@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <video src="img/video.mp4" id="vidFondo"></video>
+  <!--<video src="img/video.mp4" id="vidFondo"></video>-->
 
   <div class="contenedor">
     <div class="card rowTitulo">
@@ -29,6 +29,7 @@
             <label for="selectCiudad">Ciudad:</label>
             <select name="ciudad" id="selectCiudad">
               <option value="" selected>Elige una ciudad</option>
+              <option value="0_1">Menos de 1 año</option>
             </select>
           </div>
           <div class="filtroTipo input-field">
@@ -49,10 +50,11 @@
     </div>
 
     <div class="colContenido">
+  
       <div class="tituloContenido card">
         <h5>Resultados de la búsqueda:</h5>
         <div class="divider"></div>
-        <button type="button" name="todos" class="btn-flat waves-effect" id="mostrarTodos">Mostrar Todos</button>
+        <button type="submit" name="todos" class="btn-flat waves-effect" id="mostrarTodos">Mostrar Todos</button>
       </div>
 
     </div>
@@ -62,5 +64,6 @@
   <script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/buscador.js"></script>
 </body>
 </html>
