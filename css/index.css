@@ -94,7 +94,7 @@ video#vidFondo {
   width: 75%;
   display: flex;
   flex-flow: row wrap;
-  align-content: space-between;
+  align-content: inherit;
   padding: 20px;
 }
 .tituloContenido{
@@ -131,6 +131,7 @@ video#vidFondo {
   flex-flow: row wrap;
 }
 .itemMostrado img{
+  height: 100% !important;
   width: 35% !important;
 }
 .precioTexto{
