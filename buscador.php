@@ -1,10 +1,13 @@
 <?php
 
-  $data_file = fopen("data-1.json","r");
-  $data_readed = fread($data_file, filesize("data-1.json"));
-  $data = json_decode($data_readed, true);
-  fclose($data_file);
+$nameFile = "data-1.json";
+$file = fopen($nameFile, "r");
+$data = fread($file, filesize($nameFile));
+$dataArray = json_decode($data);
+echo $data;
 
-  
+fclose($file);
+
+
 
  ?>
