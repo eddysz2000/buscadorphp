@@ -3,9 +3,24 @@
 $nameFile = "data-1.json";
 $file = fopen($nameFile, "r");
 $data = fread($file, filesize($nameFile));
-//$dataArray = json_decode($data);
+//$ciudad = $_POST['ciudad'];
+$ciudad = 'Orlando';
+$dataArray = json_decode($data, true);
+$dataArrayDetalle = $dataArray[1]['Ciudad'];
 
-function filtrarJson($json){
+$elementos = count($dataArray);
+
+print_r($dataArrayDetalle);
+
+//if ($dataArrayDetalle['Ciudad']==$ciudad){
+	//array_diff($dataArray,['Orlando']);
+//}
+//print_r($dataArray);
+//print_r(array_keys($dataArray));
+
+//print_r($dataArray);
+
+/*function filtrarJson($json){
 
     //Decodes a JSON string, When TRUE, it will be converted into associative arrays. 
     $array = json_decode($json, true);
@@ -22,22 +37,26 @@ function filtrarJson($json){
         //check every inner array per key
         for($x=0; $x<$nbr; $x++){
 
-            //if not 0 than break
-            if($array[$x][$key] != "0"){
-                break;
+            if($array[$x][$key]==$ciudad){
+            	//if not 0 than break
+            	
+            	if($array[$x][$key] != "0"){
+	                break;
+            	}
+
+	            //if we didn't break before the last array, all values are 0 and we can unset those values.     
+    	        if($x == $nbr-1){
+
+        	        //iterate through the arrays 
+            	    for($x=0; $x<$nbr; $x++){
+                	    unset($array[$x][$key]);
+                	}
+
+            	}
+
             }
 
-            console.log($array[$x][$key]);
-
-            //if we didn't break before the last array, all values are 0 and we can unset those values.     
-            if($x == $nbr-1){
-
-                //iterate through the arrays 
-                for($x=0; $x<$nbr; $x++){
-                    unset($array[$x][$key]);
-                }
-
-            }
+            
         }
     }
 
@@ -49,7 +68,7 @@ $newJson = filtrarJson($data);
 
 echo $newJson;
 
-
+*/
 
 //echo $data;
 
