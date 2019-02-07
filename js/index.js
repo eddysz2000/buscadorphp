@@ -28,7 +28,7 @@ function inicializarSlider(){
 /*
   Función que reproduce el video de fondo al hacer scroll, y deteiene la reproducción al detener el scroll
 */
-function playVideoOnScroll(){
+/*function playVideoOnScroll(){
   var ultimoScroll = 0,
       intervalRewind;
   var video = document.getElementById('vidFondo');
@@ -47,6 +47,7 @@ function playVideoOnScroll(){
       video.pause();
     }, 10)
 }
+*/
 
 inicializarSlider();
-playVideoOnScroll();
+//playVideoOnScroll();

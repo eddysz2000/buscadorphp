@@ -13,9 +13,13 @@ $(function(){
         self.searchBienes()
       })
     },
+    
+
     cargarSelect: function(){
-      $('select').material_select()
+     $('select').material_select()
     },
+
+    
     searchBienes: function(e){
       var self = this
       var ciudad = $('form').find('select[id="selectCiudad"]').val()
@@ -52,11 +56,14 @@ $(function(){
         self.renderBienes(newData)
       })
     },
+    
     toNumero: function(num){
       var numero = num
       var newNumero = Number(numero.replace('$', '').replace(',', '').replace(' ', ''))
       return newNumero
+      
     },
+    
     renderBienes: function(bienes){
       var self = this
       var bien = bienes
