@@ -3,77 +3,44 @@
 $nameFile = "data-1.json";
 $file = fopen($nameFile, "r");
 $data = fread($file, filesize($nameFile));
-//$ciudad = $_POST['ciudad'];
-$ciudad = 'Orlando';
+$ciudad = $_POST['ciudad'];
+$tipo = $_POST['tipo'];
+//$ciudad = 'Orlando';
+//$tipo = 'Casa';
+$desde = $_POST['from'];
+$hasta = $_POST['to'];
+//$desde = 20000;
+//$hasta = 80000;
 $dataArray = json_decode($data, true);
-$dataArrayDetalle = $dataArray[1]['Ciudad'];
 
 $elementos = count($dataArray);
 
-print_r($dataArrayDetalle);
+for ($i=0;$i<$elementos;$i++){
+	$precio = substr($dataArray[$i]['Precio'],1);
+	$precio = str_replace(',', '', $precio);
 
-//if ($dataArrayDetalle['Ciudad']==$ciudad){
-	//array_diff($dataArray,['Orlando']);
-//}
-//print_r($dataArray);
-//print_r(array_keys($dataArray));
-
-//print_r($dataArray);
-
-/*function filtrarJson($json){
-
-    //Decodes a JSON string, When TRUE, it will be converted into associative arrays. 
-    $array = json_decode($json, true);
-
-    //count number of inner arrays
-    $nbr = count($array);
-
-    //get all keys of the inner array
-    $keys = array_keys($array[0]);
-
-    //iterate through the keys
-    foreach($keys as $key){
-
-        //check every inner array per key
-        for($x=0; $x<$nbr; $x++){
-
-            if($array[$x][$key]==$ciudad){
-            	//if not 0 than break
-            	
-            	if($array[$x][$key] != "0"){
-	                break;
-            	}
-
-	            //if we didn't break before the last array, all values are 0 and we can unset those values.     
-    	        if($x == $nbr-1){
-
-        	        //iterate through the arrays 
-            	    for($x=0; $x<$nbr; $x++){
-                	    unset($array[$x][$key]);
-                	}
-
-            	}
-
-            }
-
-            
-        }
-    }
-
-    $json = json_encode($array);
-    return $json;
+	if ($precio>=$desde and $precio<=$hasta) {
+		if ($ciudad and !$tipo){
+			if ($dataArray[$i]['Ciudad']!=$ciudad) {
+				unset($dataArray[$i]);
+			}
+		}else if(!$ciudad and $tipo){
+			if ($dataArray[$i]['Tipo']!=$tipo) {
+				unset($dataArray[$i]);
+			}
+		}else if($ciudad and $tipo){
+			if ($dataArray[$i]['Ciudad']!=$ciudad || $dataArray[$i]['Tipo']!=$tipo) {
+				unset($dataArray[$i]);
+			}
+		}
+	}else{
+		unset($dataArray[$i]);
+	}
 }
 
-$newJson = filtrarJson($data);
+$newdata = json_encode(array_merge($dataArray));
 
-echo $newJson;
-
-*/
-
-//echo $data;
-
+echo $newdata;
 fclose($file);
 
-
-
- ?>
+?>

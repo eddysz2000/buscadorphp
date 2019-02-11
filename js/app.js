@@ -3,6 +3,7 @@ $(function(){
     formulario: $('#formulario'),
     $btnTodos: $('#mostrarTodos'),
     contBienes: $('#bienes'),
+    listaCiudades: $('#selectCiudad'),
 
     Init: function(){
       var self = this
@@ -17,6 +18,10 @@ $(function(){
 
     cargarSelect: function(){
      $('select').material_select()
+     var self = this
+     var datos = {todos: ""}
+     self.ajaxCiudad(datos)
+
     },
 
     
@@ -44,16 +49,24 @@ $(function(){
         type: 'POST',
         data: datos
       }).done(function(data){
-        
-        //probando la devolucion de los datos
-        //data.forEach(function(val, i){
-
-        //})
-
-
-
+        console.log(data);
         var newData = JSON.parse(data)
+        console.log(newData);
         self.renderBienes(newData)
+      })
+    },
+
+    ajaxCiudad: function(datos){
+      var self = this
+      $.ajax({
+        url: 'ciudad.php',
+        type: 'POST',
+        data: datos
+      }).done(function(data){
+        console.log(data);
+        var newData = JSON.parse(data)
+        console.log(newData);
+        self.renderCiudades(newData)
       })
     },
     
@@ -106,6 +119,20 @@ $(function(){
                                   .replace(':precio:', bien.Precio)
                                   .replace(':tipo:', bien.Tipo)
         self.contBienes.append(newBien)
+      })
+    },
+
+    renderCiudades: function(ciudades){
+      var self = this
+      var ciudad = ciudades
+      self.listaCiudades.html('')
+
+      ciudad.map((ciudad)=>{
+        var ciudadTemplate = '<option value=":Ciudad:">:Ciudad:</option>';
+
+        var newCiudad = ciudadTemplate.replace(':Ciudad:', ciudad)
+
+        self.listaCiudades.append(newCiudad)
       })
     }
   }
