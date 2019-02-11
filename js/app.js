@@ -17,11 +17,11 @@ $(function(){
     
 
     cargarSelect: function(){
-     $('select').material_select()
+     //$('select').material_select()
      var self = this
      var datos = {todos: ""}
      self.ajaxCiudad(datos)
-
+     $('select').material_select()
     },
 
     
@@ -38,7 +38,7 @@ $(function(){
     cargarTodos: function(){
       var self = this
       self.$btnTodos.on('click', (e)=>{
-        var datos = {todos: ""}
+        var datos = {todos: 'todos'}
         self.ajaxData(datos)
       })
     },
@@ -49,9 +49,9 @@ $(function(){
         type: 'POST',
         data: datos
       }).done(function(data){
-        console.log(data);
+        //console.log(data);
         var newData = JSON.parse(data)
-        console.log(newData);
+        //console.log(newData);
         self.renderBienes(newData)
       })
     },
@@ -63,9 +63,8 @@ $(function(){
         type: 'POST',
         data: datos
       }).done(function(data){
-        console.log(data);
         var newData = JSON.parse(data)
-        console.log(newData);
+        //console.log(newData);
         self.renderCiudades(newData)
       })
     },
@@ -122,19 +121,27 @@ $(function(){
       })
     },
 
+    
+
     renderCiudades: function(ciudades){
       var self = this
       var ciudad = ciudades
-      self.listaCiudades.html('')
+      //self.listaCiudades.html('')
 
       ciudad.map((ciudad)=>{
-        var ciudadTemplate = '<option value=":Ciudad:">:Ciudad:</option>';
+        //console.log(ciudad);
+        var ciudadTemplate = '<option value="'+ciudad+'">'+ciudad+'</option>';
+        //console.log(ciudadTemplate);
+        //var newCiudad = ciudadTemplate.replace(':Ciudad:', ciudad)
+        //console.log(newCiudad);
 
-        var newCiudad = ciudadTemplate.replace(':Ciudad:', ciudad)
+        //self.listaCiudades.append(ciudadTemplate)
 
-        self.listaCiudades.append(newCiudad)
+        $('#selectCiudad').append(ciudadTemplate)
+        console.log($('#selectCiudad'))
       })
     }
+    
   }
   Bienes.Init()
 })

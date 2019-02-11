@@ -5,6 +5,7 @@ $file = fopen($nameFile, "r");
 $data = fread($file, filesize($nameFile));
 $ciudad = $_POST['ciudad'];
 $tipo = $_POST['tipo'];
+//$todos = $_POST['todos'];
 //$ciudad = 'Orlando';
 //$tipo = 'Casa';
 $desde = $_POST['from'];
@@ -41,6 +42,8 @@ for ($i=0;$i<$elementos;$i++){
 $newdata = json_encode(array_merge($dataArray));
 
 echo $newdata;
+
+
 fclose($file);
 
 ?>
