@@ -1,27 +1,31 @@
 $(function(){
+
+  //creacion de variables generales para el renderizado y seleccion de datos
   var Bienes = {
     formulario: $('#formulario'),
     btnTodos: $('#mostrarTodos'),
     contBienes: $('#bienes'),
-    listaCiudades: $('#selectCiudad'),
-
+    
+    //carga inicial de funciones
     Init: function(){
       var self = this
-      self.cargarSelect()
-      self.cargarTodos()
+      self.cargarSelect() //carga de valores de la lista de ciudades y tipos
+      self.cargarTodos()  //carga de todos los datos
       self.formulario.submit(function(e){
         e.preventDefault()
         self.searchBienes()
       })
     },
     
+    //funcion que permite cargar los datos de la lista de valores de los filtros del formulario
     cargarSelect: function(){
      var self = this
      var datos = {todos: ""}
-     self.ajaxCiudad(datos)
-     self.ajaxTipo(datos)
+     self.ajaxCiudad(datos) //lista de valores de las ciudades
+     self.ajaxTipo(datos) //lista de valores de los tipos
     },
 
+    //funcion que atiende el filtrado de datos para luego se renderizado
     searchBienes: function(e){
       var self = this
       var ciudad = $('form').find('select[id="selectCiudad"]').val()
@@ -31,11 +35,10 @@ $(function(){
       var todos = ''
 
       var datos = {todos: todos, ciudad: ciudad, tipo: tipo, from: from, to: to}
-      console.log(datos)
       self.ajaxData(datos)
-      console.log(datos)
     },
 
+    //funcion que carga todos los datos ignorando los filtros
     cargarTodos: function(){
       var self = this
       var ciudad = ''
@@ -48,6 +51,7 @@ $(function(){
       })
     },
 
+    //funcion que obtiene los datos, es usado con filtro de formulario o en el caso de presionar el boton "mostrar todos"
     ajaxData: function(datos){
       var self = this
       $.ajax({
@@ -61,6 +65,7 @@ $(function(){
       })
     },
 
+    //funcion que obtiene los datos para mostrarse en el filtro de ciudades
     ajaxCiudad: function(datos){
       var self = this
       $.ajax({
@@ -74,6 +79,7 @@ $(function(){
       })
     },
 
+    //funcion que obtiene los datos para mostrarse en el filtro de tipos
     ajaxTipo: function(datos){
       var self = this
       $.ajax({
@@ -87,12 +93,14 @@ $(function(){
       })
     },
     
+    //funcion que convierte en numero el filtro de rango de precios
     toNumero: function(num){
       var numero = num
       var newNumero = Number(numero.replace('$', '').replace(',', '').replace(' ', ''))
       return newNumero
     },
     
+    //funcion que renderiza los datos obtenidos del filtro del formulario o en caso de presionar la opcion "mostrar todos"
     renderBienes: function(bienes){
       var self = this
       var bien = bienes
@@ -139,6 +147,7 @@ $(function(){
       })
     },
 
+    //funcion que renderiza los datos en la seleccion de ciudades
     renderCiudades: function(ciudades){
       var self = this
       var ciudad = ciudades
@@ -149,6 +158,7 @@ $(function(){
       })
     },
 
+    //fucion que renderiza los datos en la seleccion de tipos
     renderTipos: function(tipos){
       var self = this
       var tipo = tipos
@@ -160,5 +170,7 @@ $(function(){
     }
     
   }
+
+  //funcion de carga inicial
   Bienes.Init()
 })
