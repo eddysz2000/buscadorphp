@@ -8,7 +8,6 @@ $dataArray = json_decode($data, true);
 $elementos = count($dataArray);
 $tipos = array();
 
-
 for ($i=0;$i<$elementos;$i++){
 
 	array_push($tipos, $dataArray[$i]['Tipo']);

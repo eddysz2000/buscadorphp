@@ -1,7 +1,7 @@
 $(function(){
   var Bienes = {
     formulario: $('#formulario'),
-    $btnTodos: $('#mostrarTodos'),
+    btnTodos: $('#mostrarTodos'),
     contBienes: $('#bienes'),
     listaCiudades: $('#selectCiudad'),
 
@@ -15,33 +15,39 @@ $(function(){
       })
     },
     
-
     cargarSelect: function(){
-     //$('select').material_select()
      var self = this
      var datos = {todos: ""}
      self.ajaxCiudad(datos)
-     $('select').material_select()
+     self.ajaxTipo(datos)
     },
 
-    
     searchBienes: function(e){
       var self = this
       var ciudad = $('form').find('select[id="selectCiudad"]').val()
       var tipo = $('form').find('select[id="selectTipo"]').val()
       var from = self.toNumero($('.irs-from').text())
       var to = self.toNumero($('.irs-to').text())
+      var todos = ''
 
-      var datos = {ciudad: ciudad, tipo: tipo, from: from, to: to}
+      var datos = {todos: todos, ciudad: ciudad, tipo: tipo, from: from, to: to}
+      console.log(datos)
       self.ajaxData(datos)
+      console.log(datos)
     },
+
     cargarTodos: function(){
       var self = this
-      self.$btnTodos.on('click', (e)=>{
-        var datos = {todos: 'todos'}
-        self.ajaxData(datos)
+      var ciudad = ''
+      var tipo = ''
+      var from = ''
+      var to = ''
+      self.btnTodos.on('click', (e)=>{
+        var datos = {todos: 'todo',ciudad: ciudad, tipo: tipo, from: from, to: to}
+        self.ajaxData(datos);
       })
     },
+
     ajaxData: function(datos){
       var self = this
       $.ajax({
@@ -49,10 +55,9 @@ $(function(){
         type: 'POST',
         data: datos
       }).done(function(data){
-        //console.log(data);
         var newData = JSON.parse(data)
-        //console.log(newData);
         self.renderBienes(newData)
+
       })
     },
 
@@ -64,8 +69,21 @@ $(function(){
         data: datos
       }).done(function(data){
         var newData = JSON.parse(data)
-        //console.log(newData);
         self.renderCiudades(newData)
+        $('select').material_select()
+      })
+    },
+
+    ajaxTipo: function(datos){
+      var self = this
+      $.ajax({
+        url: 'tipo.php',
+        type: 'POST',
+        data: datos
+      }).done(function(data){
+        var newData = JSON.parse(data)
+        self.renderTipos(newData)
+        $('select').material_select()
       })
     },
     
@@ -73,7 +91,6 @@ $(function(){
       var numero = num
       var newNumero = Number(numero.replace('$', '').replace(',', '').replace(' ', ''))
       return newNumero
-      
     },
     
     renderBienes: function(bienes){
@@ -118,27 +135,27 @@ $(function(){
                                   .replace(':precio:', bien.Precio)
                                   .replace(':tipo:', bien.Tipo)
         self.contBienes.append(newBien)
+        
       })
     },
-
-    
 
     renderCiudades: function(ciudades){
       var self = this
       var ciudad = ciudades
-      //self.listaCiudades.html('')
-
+  
       ciudad.map((ciudad)=>{
-        //console.log(ciudad);
         var ciudadTemplate = '<option value="'+ciudad+'">'+ciudad+'</option>';
-        //console.log(ciudadTemplate);
-        //var newCiudad = ciudadTemplate.replace(':Ciudad:', ciudad)
-        //console.log(newCiudad);
-
-        //self.listaCiudades.append(ciudadTemplate)
-
         $('#selectCiudad').append(ciudadTemplate)
-        console.log($('#selectCiudad'))
+      })
+    },
+
+    renderTipos: function(tipos){
+      var self = this
+      var tipo = tipos
+ 
+      tipo.map((tipo)=>{
+        var tipoTemplate = '<option value="'+tipo+'">'+tipo+'</option>';
+        $('#selectTipo').append(tipoTemplate)
       })
     }
     
